@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+  title = 'User Management App';
+
+  constructor(private router: Router) {}
+
+  // Ova funkcija može biti korišćena da preusmeri korisnika na login ekran ako nije ulogovan
+  logout() {
+    // Ukloni token kada korisnik izađe
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth']);  // Preusmeravanje na login ekran
+  }
 }

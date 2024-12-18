@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from django.forms import ValidationError
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -50,6 +51,11 @@ class UserTheme(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.theme} theme"
+
+    def clean(self):
+        # Validiramo da je tema ili 'light' ili 'dark'
+        if self.theme not in dict(self._meta.get_field('theme').choices):
+            raise ValidationError(f"Invalid theme '{self.theme}'")
 
 # 2. UserProfile model (dodatni podaci o korisniku)
 class UserProfile(models.Model):
