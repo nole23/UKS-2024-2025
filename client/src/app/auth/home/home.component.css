@@ -1,0 +1,44 @@
+  /* Hero section */
+  .hero {
+    padding: 50px 0;
+    text-align: center;
+    height: 100%;
+    border-radius: 0.245rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+  
+  .hero .signup-btn {
+    background-color: #36a9e1;
+    padding: 15px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .hero .signup-btn:hover {
+    background-color: #2d8ecf;
+  }
+
+  .section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .container {
+    background: url(https://d36jcksde1wxzq.cloudfront.net/hub-ui/CnQIShhn.png);
+    padding-top: 128px;
+    padding-bottom: 128px;
+    border-radius: 4px;
+    margin-top: 24px;
+  }
