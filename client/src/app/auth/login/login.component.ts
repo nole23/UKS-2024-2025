@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Login } from '../model/login';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +9,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  credential: Login;
+  emailError: boolean;
+  passwordError: boolean;
+  globalError: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {
+    // Inicializacija 'credential' sa praznim vrednostima
+    this.credential = new Login('', '');
+    this.emailError = false;
+    this.passwordError = false;
+    this.globalError = false;
+  }
 
   onSubmit() {
-    // Ovde bi bila logika za autentifikaciju korisnika
-    if (this.username === 'user') {
-      // Ulogovani korisnik
-      localStorage.setItem('token', 'some-token');  // Sačuvaj token u localStorage
-      this.router.navigate(['/']);  // Preusmeri na dashboard
+    if (this.credential.isValid()) {
+      this.authService.login(this.credential).subscribe((res: any) => {
+        if (res.status) {
+          window.location.reload();
+        } else {
+          alert(res.messsage)
+          this.globalError = true;
+        }
+      })
+      
     } else {
-      alert('Invalid login!');
+      this.emailError = !this.credential.isValidEmail(this.credential.email);
+      this.passwordError = !this.credential.isValidPassword(this.credential.password);
     }
   }
 }

@@ -34,6 +34,7 @@ def get_all_users(request):
 # Login korisnika (koristi email i lozinku)
 @api_view(['POST'])
 def login_user(request):
+    print('dosao')
     email = request.data.get('email')
     password = request.data.get('password')
     user = authenticate(request, email=email, password=password)

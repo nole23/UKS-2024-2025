@@ -5,10 +5,8 @@
     box-sizing: border-box;
   }
   
-
-  
   /* Container for the login box */
-  .container {
+  .container1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +17,7 @@
   .login-box {
     padding: 30px;
     border-radius: 10px;
-    width: 360px;
+    width: 480px;
     text-align: center;
   }
   
@@ -37,14 +35,37 @@
     width: 100%;
     padding: 10px;
     margin: 5px 0;
-    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    font: inherit;
+    letter-spacing: inherit;
+    color: currentColor;
+    padding: 4px 0 5px;
+    border: 0;
+    box-sizing: content-box;
+    background: none;
+    height: 1.4375em;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0;
+    width: 100%;
+    -webkit-animation-name: mui-auto-fill-cancel;
+    animation-name: mui-auto-fill-cancel;
+    -webkit-animation-duration: 10ms;
+    animation-duration: 10ms;
+    padding-top: 1px;
+    padding: 0;
+    padding: 16.5px 14px;
+    padding: 8.5px 14px;
+    padding-right: 0;
+    border: 1px solid #ccc;
   }
   
   .textbox input:focus {
     border-color: #0366d6;
     outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
   
   /* Button styling */
@@ -65,4 +86,18 @@
     align-items: center;
     margin-top: 10px;
   }
-  
+
+form span {
+    font-size: 12px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.error-message {
+  color: rgb(255, 50, 50);
+}
+
+.error-input {
+  border: 1px solid rgb(255, 50, 50)!important;
+  color: rgb(255, 50, 50)!important;
+}
