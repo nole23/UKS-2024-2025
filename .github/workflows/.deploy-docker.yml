@@ -10,7 +10,7 @@ on:
     #   - master  # Ova grana
     - feature/US_#6
   workflow_run:
-    workflows: ["Start build && test projects"]  # Ovo je ime workflow-a koji pokreće ovaj workflow
+    workflows: [Start build && test projects]  # Ovo je ime workflow-a koji pokreće ovaj workflow
     types:
       - completed  # Pokreće se nakon što je "Start build && test projects" workflow završen
 
