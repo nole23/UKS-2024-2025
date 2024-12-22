@@ -1,0 +1,8 @@
+
+.header {
+    position: fixed;      /* Drži header fiksiranim */
+    top: 0;               /* Postavlja header na vrh stranice */
+    left: 0;              /* Poravnava header s lijevom ivicom */
+    width: 100%;          /* Osigurava da header zauzima cijelu širinu prozora */
+    z-index: 1000;        /* Osigurava da header bude iznad ostalih elemenata */
+}

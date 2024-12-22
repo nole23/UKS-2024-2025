@@ -1,0 +1,50 @@
+<div class="container1">
+    <div class="login-box">
+      <img src="docker-logo-blue.png" alt="" width="160px">
+      <br>
+      <br>
+      <br>
+      <h1>Create your account</h1>
+      <form action="#" style="padding: 10px; border-radius: 5px;">
+        <div class="textbox">
+            <input type="text" [ngClass]="{'error-input' : emailFormatError || emailExistError || usernameExistError}" [(ngModel)]="registrationForm.email" placeholder="Email address" name="email" required>
+            <div *ngIf="emailFormatError">
+              <span [ngClass]="{'error-message' : emailFormatError}">Email format is incorrect..</span>
+            </div>
+            <div *ngIf="emailExistError">
+              <span [ngClass]="{'error-message' : emailExistError}">Email is already registered.</span>
+            </div>
+        </div>
+        <div class="textbox">
+          <input type="text" [ngClass]="{'error-input' : usernameFormatError || usernameExistError || emailExistError}" placeholder="Username" [(ngModel)]="registrationForm.username" name="username" required>
+          <div *ngIf="usernameFormatError">
+            <span [ngClass]="{'error-message' : usernameFormatError}">Username format is incorrect..</span>
+          </div>
+          <div *ngIf="usernameExistError">
+            <span [ngClass]="{'error-message' : usernameExistError}">Username is already registered.</span>
+          </div>
+        </div>
+        <div class="textbox">
+            <input type="text" [ngClass]="{'error-input' : firstNameFormatError || emailExistError || usernameExistError}" placeholder="First name" [(ngModel)]="registrationForm.first_name" name="firstname" required>
+            <span *ngIf="firstNameFormatError" [ngClass]="{'error-message' : firstNameFormatError}">First name format is incorrect..</span>
+        </div>
+        <div class="textbox">
+            <input type="text" [ngClass]="{'error-input' : lastNameFormatError || emailExistError || usernameExistError}" placeholder="Last name" [(ngModel)]="registrationForm.last_name" name="lastname" required>
+            <span *ngIf="lastNameFormatError" [ngClass]="{'error-message' : lastNameFormatError}">Last name format is incorrect..</span>
+        </div>
+        <div class="textbox">
+            <input type="password" [ngClass]="{'error-input' : passwordLengtError || emailExistError || usernameExistError}" placeholder="Password" [(ngModel)]="registrationForm.password" name="password" required>
+            <span *ngIf="passwordLengtError" [ngClass]="{'error-message' : passwordLengtError}">Password format is incorrect..</span>
+        </div>
+        <div class="textbox">
+            <input type="password" [ngClass]="{'error-input' : passwordAggainError || emailExistError || usernameExistError}" placeholder="Aggain password" [(ngModel)]="registrationForm.againPassword" name="password" required>
+            <span *ngIf="passwordAggainError" [ngClass]="{'error-message' : passwordAggainError}">Password does not match..</span>
+        </div>
+
+        <button type="submit" class="btn btn-info" (click)="onSubmit()">Sign up</button>
+      </form>
+      <div class="links" style="padding: 10px; border-radius: 5px; margin-top: 20px;">
+        <a href="/auth/login" class="btn btn-outline-dark text-white">Already have an account? Sing in</a>
+      </div>
+    </div>
+  </div>

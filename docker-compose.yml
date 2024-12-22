@@ -1,0 +1,68 @@
+services:
+  db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: uks
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  web:
+    build:
+      context: ./server
+    container_name: django-web
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=uks
+      - DB_USER=postgres
+      - DB_PASSWORD=123456789
+      - IS_DOCKER=True
+      - DJANGO_ENV=docker
+    volumes:
+      - ./server:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - mynetwork
+    ports:
+      - "8000:8000"
+
+  nginx:
+    build:
+      context: ./nginx   # Koristi Dockerfile iz nginx direktorijuma
+    container_name: nginx-proxy
+    depends_on:
+      - web
+      - client
+    ports:
+      - "80:80"   # Ili "443:443" za HTTPS
+    networks:
+      - mynetwork
+
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    networks:
+      - mynetwork
+
+  client:
+    build:
+      context: ./client
+    container_name: angular-client
+    ports:
+      - "4200:4200"
+    networks:
+      - mynetwork
+
+volumes:
+  db-data:
+
+networks:
+  mynetwork:
+    driver: bridge
