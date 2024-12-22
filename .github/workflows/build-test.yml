@@ -1,0 +1,90 @@
+name: Start build && test projects
+
+on:
+  push:
+    branches:
+      # - master
+      # - development
+      - feature/US_#6
+  pull_request:
+    branches:
+      # - master
+      # - development
+      - feature/US_#6
+
+jobs:
+  # Job za buildanje Angular klijenta
+  client-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.9.0'
+
+      - name: Install dependencies for Angular client
+        run: |
+          cd client
+          npm install --legacy-peer-deps
+
+      - name: Install Google Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome-stable_current_amd64.deb
+
+      - name: Set Chrome path
+        run: echo "CHROME_BIN=/usr/bin/google-chrome" >> $GITHUB_ENV
+
+      - name: Build Angular client
+        run: |
+          cd client
+          npm run build --prod
+
+      - name: Test Angular client
+        run: |
+          cd client
+          npm run test -- --watch=false --browsers=ChromeHeadless
+
+  # Job za buildanje Django servera
+  server-build:
+    needs: client-build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.8'
+
+      - name: Install dependencies for Django server
+        run: |
+          cd server
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Set environment to test
+        run: |
+          echo "DJANGO_ENV=test" >> $GITHUB_ENV
+
+      - name: Load environment variables from .env.test
+        run: |
+          set -o allexport
+          source $GITHUB_WORKSPACE/server/.env.test
+          set +o allexport
+
+      - name: Run Django migrations and tests with SQLite
+        run: |
+          cd server
+          source venv/bin/activate
+          python manage.py migrate
+          python manage.py test
