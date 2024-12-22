@@ -3,12 +3,10 @@ name: Deploy Docker Image
 on:
   push:
     branches:
-    #   - master  # Ova grana
-    - feature/US_#6
+      - master  # Ova grana
   pull_request:
     branches:
-    #   - master  # Ova grana
-    - feature/US_#6
+      - master  # Ova grana
   workflow_run:
     workflows: [Start build && test projects]  # Ovo je ime workflow-a koji pokreće ovaj workflow
     types: [completed]  # Pokreće se nakon što je "Start build && test projects" workflow završen

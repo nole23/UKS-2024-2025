@@ -3,14 +3,12 @@ name: Start build && test projects
 on:
   push:
     branches:
-      # - master
-      # - development
-      - feature/US_#6
+      - master
+      - development
   pull_request:
     branches:
-      # - master
-      # - development
-      - feature/US_#6
+      - master
+      - development
 
 jobs:
   # Job za buildanje Angular klijenta
