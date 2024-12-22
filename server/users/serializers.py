@@ -28,24 +28,27 @@ class CustomUserSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
 
         # Proveravamo vrednost 'profile_picture'
-        profile_picture = representation.get('profile_picture')
+        profile_picture = representation.get('profile_picture', None)
 
         print(profile_picture)
 
-        # Ako je vrednost jedan od default vrednosti, izvršavamo konverziju
-        if profile_picture in '/media/default_1':
+        if profile_picture is None:
             representation['profile_picture'] = "1.png"
+        else:
+            # Ako je vrednost jedan od default vrednosti, izvršavamo konverziju
+            if profile_picture in '/media/default_1':
+                representation['profile_picture'] = "1.png"
 
-        if profile_picture in '/media/default_2':
-            representation['profile_picture'] = "2.png"
+            if profile_picture in '/media/default_2':
+                representation['profile_picture'] = "2.png"
 
-        if profile_picture in '/media/default_3':
-            representation['profile_picture'] = "3.png"
+            if profile_picture in '/media/default_3':
+                representation['profile_picture'] = "3.png"
 
-        if profile_picture in '/media/default_4':
-            representation['profile_picture'] = "4.png"
+            if profile_picture in '/media/default_4':
+                representation['profile_picture'] = "4.png"
 
-        if profile_picture in '/media/default_5':
-            representation['profile_picture'] = "5.png"
+            if profile_picture in '/media/default_5':
+                representation['profile_picture'] = "5.png"
 
         return representation
