@@ -16,7 +16,6 @@ import random
 # Kreiranje novog korisnika
 @api_view(['POST'])
 def create_user(request):
-    print('test')
     if request.method == 'POST':
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
