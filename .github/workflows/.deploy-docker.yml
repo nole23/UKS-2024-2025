@@ -37,7 +37,7 @@ jobs:
 
       # Checkout-ujte kod
       - name: Checkout code
-        uses: actions/checkout
+        uses: actions/checkout@v2
 
       # Logovanje u Docker Hub sa korisničkim imenom i Docker tokenom
       - name: Log in to Docker Hub
