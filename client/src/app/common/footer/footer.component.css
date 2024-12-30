@@ -1,0 +1,13 @@
+.footer {
+    background-color: #2D404E;
+    color: #ADBECB;
+    text-align: center;
+}
+
+.footer ul {
+    list-style-type: none;
+}
+
+.text-white:hover {
+    color: black;
+}

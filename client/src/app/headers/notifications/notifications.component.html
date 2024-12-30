@@ -1,0 +1,20 @@
+<div class="notification">
+    <div class="notification-one">
+        <h4>Notifications</h4>
+        <div class="all-notifications">
+            <div *ngIf="listOfNotifications.length === 0">
+                <div class="not-notifications">
+                    <div class="not-notifications-image">
+                        <i class="fa fa-bell" style="font-size: 40px;" aria-hidden="true"></i>
+                    </div>
+                    <div class="not-notifications-text">No new notifications</div>
+                </div>
+            </div>
+            <div *ngIf="listOfNotifications.length > 0">
+                <div *ngFor="let i of listOfNotifications">
+                    <span>{{i.id}}</span> <span>{{i.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

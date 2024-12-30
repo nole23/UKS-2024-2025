@@ -7,3 +7,13 @@ body {
     height: 100vh;
     color: #f0f6fc
 }
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+}

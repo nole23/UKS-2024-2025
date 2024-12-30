@@ -1,0 +1,83 @@
+<!-- header.component.html -->
+<header class="css-header">
+    <div class="header-body">
+      <div class="header-body-one">
+        <div class="header-body-left">
+          <a href="/" class="header-body-left-logo">
+            <img src="docker-logo-white.png" width="150px" height="25px" alt="">
+          </a>
+          <div  class="header-body-left-options">
+            <div class="header-body-left-option-one">
+              <div class="header-body-left-option-one-table">
+                <a href="dashboard" [ngClass]="{'active-tab' : activeTab.isDashboard }">Repositories</a>
+                <a href="dashboard/orgs" [ngClass]="{'active-tab' : activeTab.isOrgs }">Organizations</a>
+                <a href="dashboard/usage" [ngClass]="{'active-tab' : activeTab.isUsage }">Usage</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-body-right">
+          <form action="">
+            <div class="input-group">
+              <input type="text" class="form-control" style="width: 350px;" placeholder="Pretraga" (input)="onInputChange($event)" aria-label="Pretraga" aria-describedby="basic-addon1">
+              <div *ngIf="isSpiner" class="spinner" style="position: absolute; right: 10px; top: 25%;"></div>
+
+            </div>
+            <div *ngIf="isSearchOpne" class="dropdown-menu show" style="position: absolute; z-index: 1000; width: 350px; height: 350px; overflow: auto;">
+              <div style="color: #fff; font-size: 14px;" *ngIf="community.length > 0">
+                <h4>Comunnity</h4>
+                <div style="padding: 10px; font-size: 14px;" *ngFor="let i of community">
+                  <a href="{{i.link}}" style="text-decoration: none;">{{i.name}}</a>
+                </div>
+              </div>
+              <div style="color: #fff; font-size: 14px;" *ngIf="trust.length > 0">
+                <h4>Trust content</h4>
+                <div style="padding: 10px; font-size: 14px;" *ngFor="let i of trust">
+                  <a href="{{i.link}}" style="text-decoration: none;">{{i.name}}</a>
+                </div>
+              </div>
+              <div style="color: #fff; font-size: 14px;" *ngIf="community.length === 0 && trust.length === 0">
+                <h4 style="text-align: center;">Not found</h4>
+              </div>
+            </div>
+          </form>
+          <div class="header-body-right-one">
+            <div class="header-body-right-one-first">
+              <button (click)="openSubmenu('info')" class="btn " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-question-circle-o icon-hover" [ngClass]="{'icon-action' : isInfoOpen}" aria-hidden="true"></i></button>
+              <div *ngIf="isInfoOpen" #dropdownMenu class="dropdown-menu show dropdown-menu-end fs-14" style="right: 230px;">
+                <a class="dropdown-item" href="#">Documentation <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="#">Contant support <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="#">System status <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+              </div>
+            </div>
+            <div class="header-body-right-one-first">
+              <a href="dashboard/repository-settings/default-privacy" class="btn"><i class="fa fa-cog icon-hover"  aria-hidden="true"></i></a>
+            </div>
+            <div class="header-body-right-one-first">
+              <button (click)="openSubmenu('notification')" class="btn"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
+              <div *ngIf="isNotificationsOpen" #dropdownMenu class="dropdown-menu show dropdown-menu-end fs-14" style="right: 135px;">
+                <app-notifications></app-notifications>
+              </div>
+            </div>
+            <div class="header-body-right-one-first">
+              <button (click)="openSubmenu('theams')" class="btn"><i class="fa fa-tachometer" aria-hidden="true"></i></button>
+              <div *ngIf="isTheamsOpen" #dropdownMenu class="dropdown-menu show dropdown-menu-end" style="right: 90px;">
+                <a class="dropdown-item" href="#">Dark theme</a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class=" user-profile" (click)="openSubmenu('user-profile')">
+              <div class="user-profile-name">
+                N
+              </div>
+            </button>
+            <div *ngIf="isUserProfile" #dropdownMenu class="dropdown-menu show dropdown-menu-end fs-14" style="right: 30px;">
+              <app-user-profile-light></app-user-profile-light>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+  
