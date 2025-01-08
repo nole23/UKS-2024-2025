@@ -7,5 +7,6 @@ urlpatterns = [
     path('login/', views.login_user, name='login_user'),
     path('send-restart-request/', views.reset_password, name='reset_password'),
     path('verify-token', views.verify_token, name='verify_token'),
-    path('restart-password/', views.set_new_passwrod, name='set_new_passwrod')
+    path('restart-password/', views.set_new_passwrod, name='set_new_passwrod'),
+    path('myfriends', views.search_friends, name='search_friends')
 ]

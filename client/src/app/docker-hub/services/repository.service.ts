@@ -33,6 +33,72 @@ export class RepositoryService {
         );
   }
 
+  getRepositoryByName(query: any) {
+    return this.http.get(this.API_URL + 'search-repositories?username=' + query.username + '&query=' + query.repositoryName)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      );
+  }
+  
+  getAllRepositoryByUsernam(username: string) {
+    return this.http.get(this.API_URL + 'get-all-repository?username=' + username)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      );
+  }
+
+  createNewRepository(newRepository: any) {
+    return this.http.post(this.API_URL + 'repositories/create/', newRepository)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      )
+  }
+
   private _checkResponse(res: any) {
     if (res.message === undefined) return true;
 

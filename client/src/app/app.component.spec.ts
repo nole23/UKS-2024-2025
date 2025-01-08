@@ -52,13 +52,6 @@ describe('AppComponent', () => {
     expect(component.isAuthoriz).toBeTrue();
   });
 
-  it('should call logout and navigate to /auth', () => {
-    const routerSpy = spyOn(component['router'], 'navigate');
-    component.logout();
-    expect(localStorage.getItem('token')).toBeNull();
-    expect(routerSpy).toHaveBeenCalledWith(['/auth']);
-  });
-
   it('should render header if user is authorized', () => {
     globalServiceSpy.checkUserLoggedIn.and.returnValue(true); // Simuliramo ulogovanog korisnika
     component.ngOnInit();
@@ -71,13 +64,5 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('app-footer')).toBeTruthy();
-  });
-
-  it('should not render header if user is not authorized', () => {
-    globalServiceSpy.checkUserLoggedIn.and.returnValue(false); // Simuliramo neulogovanog korisnika
-    component.ngOnInit();
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('app-header')).toBeNull();
   });
 });

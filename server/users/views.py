@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 
 from uks.settings import EMAIL_HOST_USER
-from .models import CustomUser
+from .models import CustomUser, Friendship
 from .serializers import CustomUserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -34,7 +34,6 @@ def get_all_users(request):
 # Login korisnika (koristi email i lozinku)
 @api_view(['POST'])
 def login_user(request):
-    print('dosao')
     email = request.data.get('email')
     password = request.data.get('password')
     user = authenticate(request, email=email, password=password)
@@ -120,3 +119,33 @@ def set_new_passwrod(request):
     user.save()
 
     return JsonResponse({"message": "SUCCESS"}, status=200)
+
+@api_view(['GET'])
+def search_friends(request):
+    username = request.GET.get('username', None)
+
+    if not username:
+        return JsonResponse({'error': 'QUERY_NOT_FOUND'}, status=400)
+    
+    user = CustomUser.objects.get(username=username)
+    friends = user.get_friends()
+    serializer = CustomUserSerializer(friends, many=True)
+    return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
+    
+@api_view(['POST'])
+def add_friend(user, friend):
+    """
+    Dodaj prijatelja korisniku.
+    """
+    if user == friend:
+        raise ValueError("Korisnik ne može dodati sebe kao prijatelja.")
+
+    # Proveri da li prijateljstvo već postoji
+    if Friendship.objects.filter(user=user, friend=friend).exists():
+        raise ValueError("Prijateljstvo već postoji.")
+
+    # Kreiraj prijateljstvo
+    Friendship.objects.create(user=user, friend=friend)
+    Friendship.objects.create(user=friend, friend=user)  # Dvosmerno prijateljstvo
+
+    JsonResponse({"message": "SUCCESS"}, status=200)
