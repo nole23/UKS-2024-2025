@@ -5,7 +5,6 @@ from django.http import JsonResponse
 # Dohvat svih korisnika
 @api_view(['GET'])
 def notification(request):
-    print('dosao ovde')
     if request.method == 'GET':
         #TODO treba implementirati servis za notifikacije kada
         return JsonResponse({"message": "SUCCESS", "notification": []}, status=200)
