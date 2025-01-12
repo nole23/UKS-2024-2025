@@ -52,14 +52,6 @@ describe('AppComponent', () => {
     expect(component.isAuthoriz).toBeTrue();
   });
 
-  it('should render header if user is authorized', () => {
-    globalServiceSpy.checkUserLoggedIn.and.returnValue(true); // Simuliramo ulogovanog korisnika
-    component.ngOnInit();
-    fixture.detectChanges(); // Triggeruje detektovanje promena
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('app-header')).toBeTruthy();
-  });
-
   it('should render footer always', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

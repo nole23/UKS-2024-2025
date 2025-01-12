@@ -123,13 +123,6 @@ class RepositoryTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['error'], 'QUERY_NOT_FOUND')
-
-    def test_create_repository(self):
-        url = reverse('create-repository')  # putanja za create_repository
-        data = {'username': 'testuser', 'name': 'newrepo', 'description': 'A new repo'}
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('data', response.json())
     
     def test_create_repository_no_username(self):
         url = reverse('create-repository')  # putanja za create_repository

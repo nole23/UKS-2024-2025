@@ -3,15 +3,15 @@
     <div class="header-body">
       <div class="header-body-one">
         <div class="header-body-left">
-          <a href="/" class="header-body-left-logo">
+          <a [routerLink]="['/']" class="header-body-left-logo">
             <img src="docker-logo-white.png" width="150px" height="25px" alt="">
           </a>
           <div  class="header-body-left-options">
             <div class="header-body-left-option-one">
               <div class="header-body-left-option-one-table">
-                <a href="dashboard" [ngClass]="{'active-tab' : activeTab.isDashboard }">Repositories</a>
-                <a href="dashboard/orgs" [ngClass]="{'active-tab' : activeTab.isOrgs }">Organizations</a>
-                <a href="dashboard/usage" [ngClass]="{'active-tab' : activeTab.isUsage }">Usage</a>
+                <a [routerLink]="['/dashboard/']" routerLinkActive="active-tab">Repositories</a>
+                <a [routerLink]="['/dashboard/orgs']" routerLinkActive="active-tab">Organizations</a>
+                <a [routerLink]="['/dashboard/usage']" routerLinkActive="active-tab">Usage</a>
               </div>
             </div>
           </div>
@@ -24,19 +24,13 @@
 
             </div>
             <div *ngIf="isSearchOpne" class="dropdown-menu show" style="position: absolute; z-index: 1000; width: 350px; height: 350px; overflow: auto;">
-              <div style="color: #fff; font-size: 14px;" *ngIf="community.length > 0">
-                <h4>Comunnity</h4>
-                <div style="padding: 10px; font-size: 14px;" *ngFor="let i of community">
-                  <a href="{{i.link}}" style="text-decoration: none;">{{i.name}}</a>
-                </div>
-              </div>
               <div style="color: #fff; font-size: 14px;" *ngIf="trust.length > 0">
-                <h4>Trust content</h4>
+                <h4>Repositories</h4>
                 <div style="padding: 10px; font-size: 14px;" *ngFor="let i of trust">
-                  <a href="{{i.link}}" style="text-decoration: none;">{{i.name}}</a>
+                  <a [routerLink]="['/dashboard/repository/docker', i.user, i.name, 'general']" style="text-decoration: none;">{{i.name}}</a>
                 </div>
               </div>
-              <div style="color: #fff; font-size: 14px;" *ngIf="community.length === 0 && trust.length === 0">
+              <div style="color: #fff; font-size: 14px;" *ngIf="trust.length === 0">
                 <h4 style="text-align: center;">Not found</h4>
               </div>
             </div>
@@ -45,13 +39,13 @@
             <div class="header-body-right-one-first">
               <button (click)="openSubmenu('info')" class="btn " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-question-circle-o icon-hover" [ngClass]="{'icon-action' : isInfoOpen}" aria-hidden="true"></i></button>
               <div *ngIf="isInfoOpen" #dropdownMenu class="dropdown-menu show dropdown-menu-end fs-14" style="right: 230px;">
-                <a class="dropdown-item" href="#">Documentation <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
-                <a class="dropdown-item" href="#">Contant support <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
-                <a class="dropdown-item" href="#">System status <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="https://docs.docker.com/docker-hub/" target="_blank" rel="noopener noreferrer">Documentation <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+                <a class="dropdown-item" [routerLink]="['/support/contact']">Contant support <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="https://www.dockerstatus.com/" target="_blank" rel="noopener noreferrer">System status <i class="fa fa-external-link fs-14" aria-hidden="true"></i></a>
               </div>
             </div>
             <div class="header-body-right-one-first">
-              <a href="dashboard/repository-settings/default-privacy" class="btn"><i class="fa fa-cog icon-hover"  aria-hidden="true"></i></a>
+              <a [routerLink]="['/dashboard/repository-settings/default-privacy']" class="btn"><i class="fa fa-cog icon-hover"  aria-hidden="true"></i></a>
             </div>
             <div class="header-body-right-one-first">
               <button (click)="openSubmenu('notification')" class="btn"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
@@ -69,7 +63,7 @@
           <div>
             <button class=" user-profile" (click)="openSubmenu('user-profile')">
               <div class="user-profile-name">
-                N
+                {{getFirstUppercaseLetter(profile.username)}}
               </div>
             </button>
             <div *ngIf="isUserProfile" #dropdownMenu class="dropdown-menu show dropdown-menu-end fs-14" style="right: 30px;">

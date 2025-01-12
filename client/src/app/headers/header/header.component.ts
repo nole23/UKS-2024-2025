@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd  } from '@angular/router';
 import { RepositoryService } from '../../docker-hub/services/repository.service';
 import { debounceTime, Subject, switchMap } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -19,10 +20,12 @@ export class HeaderComponent implements OnInit {
   community: any[];
   trust: any[];
   searchQuery$ = new Subject<string>();
+  profile: any = {};
   
   constructor(
     private router: Router,
-    private repository: RepositoryService
+    private repository: RepositoryService,
+    private userService: UserService
   ) {
     this.isInfoOpen = false;
     this.isNotificationsOpen = false;
@@ -40,6 +43,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let user = this.userService.getAuthorizedUser();
+    if (user !== null) {
+      this.profile = user;
+    } else {
+      alert('User is not authorized')
+      this.userService.logout();
+    }
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (this.router.url.includes('/dashboard/orgs')) {
@@ -61,12 +72,9 @@ export class HeaderComponent implements OnInit {
           this.isSpiner = false;
           alert('Server is not respondent');
         } else {
-          if (res.message.length == 0) {
-            this.isSpiner = false;
-            this.isSearchOpne = true;
-          } else {
-            this._parserSearch(res.message);
-          }
+          this.isSearchOpne = true;
+          this.trust = res.message;
+          this.isSpiner = false;
         }
       },
       (error) => {
@@ -111,19 +119,10 @@ export class HeaderComponent implements OnInit {
       this.searchQuery$.next(inputValue); // Emituje novi tekst za pretragu
     }
   }
-
-  private _parserSearch(response: any[]) {
-    response.forEach(item => {
-      if (item.community) {
-        this.community = item.community;
-        this.isSearchOpne = true;
-      }
-      if (item.trust) {
-        this.trust = item.trust;
-        this.isSearchOpne = true;
-      }
-      this.isSpiner = false;
-    });
+  
+  getFirstUppercaseLetter(word: string): string {
+    if (!word || word.length === 0) return ''; // Provera za prazan string
+    return word.charAt(0).toUpperCase(); // Uzimamo prvo slovo i pretvaramo ga u veliko
   }
 
   private _allClose() {

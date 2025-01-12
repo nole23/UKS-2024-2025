@@ -1,0 +1,29 @@
+<div class="profile">
+    <div class="profile-1">
+        <div class="profile-2">
+            <div class="profile-up">
+                <div class="profile-up-1">
+                    <div class="profile-up-left">
+                        <div class="profile-up-left-img">
+                            <div class="profile-up-left-img-word">{{getFirstUppercaseLetter(profile.username)}}</div>
+                        </div>
+                    </div>
+                    <div class="profile-up-right">
+                        <div class="profile-up-right-up">
+                            <h3>{{profile.email}}</h3>
+                            <span>
+                                <a [routerLink]="['/u/setting', profile.username]">Edit profile <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            </span>
+                        </div>
+                        <div class="profile-up-right-down">
+                            <div class="profile-up-right-down-1">
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                                <p>Community User</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

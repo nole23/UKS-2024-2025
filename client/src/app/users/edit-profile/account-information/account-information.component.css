@@ -1,0 +1,144 @@
+.account-information {
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 100%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    padding-bottom: 16px;
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    gap: 40px;
+    position: relative;
+}
+
+.account-information-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1;
+    min-width: 0;
+}
+
+.form-inpu {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    gap: 32px;
+}
+
+.form-up {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-up h1 {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.333;
+    letter-spacing: 0;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.form-up p {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.from-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.from-body-input {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 0px;
+    padding: 0px;
+    border: 0px;
+    vertical-align: top;
+    margin: 4px 0px 30px 0px;
+}
+
+.from-body-input label {
+    top: 0px;
+    left: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.02em;
+    display: block;
+    text-overflow: ellipsis;
+    position: absolute;
+    transform-origin: left top;
+    z-index: 1;
+    user-select: none;
+    pointer-events: auto;
+    max-width: calc(133% - 32px);
+    transform: translate(14px, -9px) scale(0.75);
+    top: -1px;
+    left: 2px;
+    color: #ADBECB;
+    padding: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color 200ms cubic-bezier(0, 0, 0.2, 1), transform 200ms cubic-bezier(0, 0, 0.2, 1), max-width 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.from-body-input-1 {
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    cursor: text;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #10151B;
+    position: relative;
+    border-radius: 4px;
+}
+
+.from-body-input-1 input {
+    font: inherit;
+    letter-spacing: inherit;
+    color: currentcolor;
+    border: 0px;
+    box-sizing: content-box;
+    background: none;
+    height: 1.4375em;
+    margin: 0px;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0px;
+    width: 100%;
+    animation-name: mui-auto-fill-cancel;
+    animation-duration: 10ms;
+    padding: 8.5px 14px;
+}
+
+.from-down {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
