@@ -10,14 +10,26 @@ import { ErrorComponent } from '../headers/error/error.component';
 import { RepositoryService } from './services/repository.service';
 import { UserService } from './services/user.service';
 import { CreateRepositoryComponent } from './repository/create-repository/create-repository.component';
-import { RepositoryComponent } from './repository/repository.component';
+import { RepositoriesComponent } from './repository/repositories.component';
+import { RepositoryComponent } from './repository/repository/repository.component';
+import { GeneralComponent } from './repository/repository/general/general.component';
+import { RepositoryHeaderComponent } from './repository/repository/repository-header/repository-header.component';
+import { TagsComponent } from './repository/repository/tags/tags.component';
+import { CollaboratorsComponent } from './repository/repository/collaborators/collaborators.component';
+import { SettingsComponent } from './repository/repository/settings/settings.component';
 
 @NgModule({
   declarations: [
     DockerHubComponent,
     HomeComponent,
     CreateRepositoryComponent,
+    RepositoriesComponent,
     RepositoryComponent,
+    GeneralComponent,
+    RepositoryHeaderComponent,
+    TagsComponent,
+    CollaboratorsComponent,
+    SettingsComponent,
     ErrorComponent
   ],
   imports: [

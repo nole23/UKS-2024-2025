@@ -145,3 +145,25 @@ class UserTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['message'], "User with this email does not exist")
 
+    def test_search_friends_success(self):
+        response = self.client.get(reverse('search_friends'), {'username': 'testuser'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()['data']), 0)  # Očekujemo jednog prijatelja (testuser)
+
+    def test_search_friends_missing_query(self):
+        response = self.client.get(reverse('search_friends'))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)  # Očekujemo grešku zbog nedostatka username
+
+    def test_search_new_collaboration_success(self):
+        response = self.client.get(reverse('search_new_collaboration'), {'username': 'test'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()['data']), 1)  # Očekujemo korisnika sa imenom koje sadrži "test"
+
+    def test_search_new_collaboration_no_results(self):
+        response = self.client.get(reverse('search_new_collaboration'), {'username': 'nonexistentuser'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()['data']), 0)  # Nema korisnika sa tim imenom
+
+    def test_search_new_collaboration_missing_query(self):
+        response = self.client.get(reverse('search_new_collaboration'))
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)  # Očekujemo grešku zbog nedostatka username

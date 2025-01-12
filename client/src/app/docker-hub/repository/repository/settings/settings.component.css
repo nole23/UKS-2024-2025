@@ -1,0 +1,117 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 16px;
+}
+
+.settings-region {
+    border: 1px solid #1C262D;
+    border-radius: 2px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.publication {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.publication h3 {
+    margin: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.286rem;
+    line-height: 1.333;
+    letter-spacing: 0px;
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.publication p {
+    margin: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    color: #7794AB;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+.publication-body {
+    position: relative;
+    min-width: 0px;
+    padding: 0px;
+    border: 0px;
+    vertical-align: top;
+    margin: 4px 0px;
+}
+
+.publication-down {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.remove-up {
+    position: relative;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.remove-up h3 {
+    margin: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.286rem;
+    line-height: 1.333;
+    letter-spacing: 0px;
+}
+
+.remove-down {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.remove-dow p {
+    margin-top: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    margin: 0px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+.btn-outline-danger {
+    color: #FFFFFF!important;
+}
+
+.btn-outline-danger:hover {
+    background-color: rgba(255, 255, 255, 0.1);;
+}

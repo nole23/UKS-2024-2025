@@ -1,13 +1,13 @@
-from venv import logger
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 
-from .serializers import RepositorySerializer
+from .serializers import DockerImageSerializer, RepositorySerializer
 
-from .models import CustomUser, Repository, RepositorySettings
+from .models import CustomUser, DockerImage, Repository, RepositorySettings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -87,8 +87,32 @@ def get_all_repository(request):
         repositories = Repository.objects.filter(user=user)
         serializer = RepositorySerializer(repositories, many=True)
         return JsonResponse({"message": 'SUCCESS', 'data': serializer.data}, status=200)
-    except Repository.DoesNotExist:
-        return JsonResponse({"message": "REPOSITORY_NOT_FOIND"}, status=400)
+    except Exception as e:
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
+@api_view(['GET'])
+def get_all_tags_by_repository(request):
+    try:
+        repositoryId = request.GET.get('repositoryId', None)
+
+        if not repositoryId:
+            return JsonResponse({'error': 'QUERY_NOT_FOUND'}, status=400)
+
+        try:
+            repository = Repository.objects.get(id=repositoryId)
+        except Repository.DoesNotExist:
+            return JsonResponse({"message": "REPOSITORY_NOT_FOIND"}, status=400)
+        
+        try:
+            dockers = DockerImage.objects.filter(repository=repositoryId)
+        except DockerImage.DoesNotExist:
+            return JsonResponse({"message": "DOCKERIMAGE_NOT_FOIND"}, status=400)
+
+        serializer = DockerImageSerializer(dockers, many=True)
+        return JsonResponse({"message": 'SUCCESS', 'data': serializer.data}, status=200)
+    except Exception as e:
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
 
 @api_view(['POST'])
 def create_repository(request):
@@ -113,28 +137,25 @@ def create_repository(request):
 
         # Proveri validaciju serijalizatora
         serializer = RepositorySerializer(data=data)
+        serializer.check_name(data, user.username)
+        
         if serializer.is_valid():
-            print("Serializer is valid")
 
             try:
                 # Sačuvaj Repository
                 repository = serializer.save()
-                print(f"Saved repository: {repository}")
 
                 # Proveri da li već postoji RepositorySettings za ovaj repository
                 existing_settings = RepositorySettings.objects.filter(repository=repository).first()
 
                 if existing_settings:
                     # Ako postoji, ažuriraj postavke
-                    print(f"Repository settings for repository {repository.id} already exist. Updating settings.")
                     existing_settings.is_private = data.get('is_private', True)  # Podrazumevano je privatno
                     existing_settings.save()
-                    print(f"Updated repository settings for repository {repository.id}")
                 else:
                     # Ako ne postoji, kreiraj nove postavke
                     is_private = data.get('is_private', True)  # Podrazumevano je privatno
                     RepositorySettings.objects.create(repository=repository, is_private=is_private)
-                    print(f"Created new repository settings for repository {repository.id}")
 
                 # Vrati podatke o repozitorijumu
                 return JsonResponse({"message": 'SUCCESS', 'data': serializer.data}, status=200)
@@ -150,7 +171,121 @@ def create_repository(request):
         print(f"Server error occurred while creating repository: {str(e)}")
         return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
 
+@api_view(['PUT'])
+def update_repository(request):
+    try:
+        data = request.data.copy()
 
+        repository_data = data['reposioty']
+        user_data = data['user']
+
+        # Provera da li su podaci prosleđeni
+        if not repository_data or not user_data:
+            return JsonResponse({"message": "INVALID_DATA"}, status=400)
+
+        # Dohvati korisnika
+        try:
+            user = CustomUser.objects.get(username=user_data['username'])
+        except CustomUser.DoesNotExist:
+            return JsonResponse({"message": "USER_NOT_FOUND"}, status=404)
+
+        # Dohvati repozitorijum
+        try:
+            repo = Repository.objects.get(id=repository_data['id'], user=user)
+        except Repository.DoesNotExist:
+            return JsonResponse({"message": "REPOSITORY_NOT_FOUND"}, status=404)
+        
+        # Ažuriraj polja repozitorijuma
+        serializer = RepositorySerializer(repo, data=repository_data, partial=True)  # `partial=True` omogućava delimično ažuriranje
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
+        else:
+            return JsonResponse({"message": "VALIDATION_ERROR", "errors": serializer.errors}, status=400)
+    except Exception as e:
+        print(f"Server error occurred while updating repository: {str(e)}")
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
+@api_view(['PUT'])
+def update_settings_repository(request):
+    try:
+        data = request.data.copy()
+
+        # Dohvati repozitorijum
+        try:
+            repo = Repository.objects.get(id=data['id'])
+        except Repository.DoesNotExist:
+            return JsonResponse({"message": "REPOSITORY_NOT_FOUND"}, status=404)
+
+        
+
+        reposirtorySettings = RepositorySettings.objects.get(repository=repo.id)
+        reposirtorySettings.is_private = data['settings']['is_private']
+
+        reposirtorySettings.save()
+
+        return JsonResponse({"message": "SUCCESS", "data": {}}, status=200)
+    except Exception as e:
+        print(f"Server error occurred while updating repository: {str(e)}")
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
+@api_view(['POST'])
+def delete_repository(request):
+    try:
+        data = request.data.copy()
+        listTags = data['listTags']
+        
+        for id in listTags:
+            # Dohvati repozitorijum
+            try:
+                docker_image = DockerImage.objects.get(id=id)
+                docker_image.delete()  # Brisanje DockerImage objekta
+            except Repository.DoesNotExist:
+                print(f"Server error occurred while delete tags: {str(e)}")
+        
+        return JsonResponse({"message": "SUCCESS", "data": {}}, status=200)
+    except Exception as e:
+        print(f"Server error occurred while updating repository: {str(e)}")
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+    
+@api_view(['POST'])
+def add_repository(request):
+    try:
+        data = request.data.copy()
+        tag = data['newTag']
+        username = data['username']
+        
+        # Provera da li su podaci prosleđeni
+        if not tag or not username:
+            return JsonResponse({"message": "INVALID_DATA"}, status=400)
+        
+        # Dohvati korisnika
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({"message": "USER_NOT_FOUND"}, status=404)
+
+        # Dohvati repozitorijum
+        try:
+            repo = Repository.objects.get(id=tag['repository'], user=user)
+        except Repository.DoesNotExist:
+            return JsonResponse({"message": "REPOSITORY_NOT_FOUND"}, status=404)
+
+        serializer = DockerImageSerializer(data=tag)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
+        else:
+            return JsonResponse({"message": "NOT_SAVE_NEW_TAGS"}, status=400)
+    except Exception as e:
+        print(f"Server error occurred while updating repository: {str(e)}")
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
+@api_view(['PUT'])
+def add_collaborators(request):
+
+    return JsonResponse({"message": "SUCCESS", "data": {}}, status=200)
 
 @api_view(['GET'])
 def get_repositories(request):
@@ -170,4 +305,43 @@ def get_repositories(request):
     ).distinct()
 
     serializer = RepositorySerializer(repositories, many=True)
+    return JsonResponse({"message": 'SUCCESS', 'data': serializer.data}, status=200)
+
+
+@api_view(['DELETE'])
+def delete_reposiroty(request):
+    reposirotyId = request.GET.get('reposirotyId', None)
+    if not reposirotyId:
+        return JsonResponse({'error': 'QUERY_NOT_FOUND'}, status=400)
+    
+    try:
+        repo = Repository.objects.get(id=reposirotyId)
+
+        dockerImage = DockerImage.objects.filter(repository=repo.id)
+        dockerImage.delete()
+            
+        repo.delete()
+        return JsonResponse({"message": "SUCCESS"}, status=200)
+    except Exception as e:
+        return JsonResponse({"message": "SERVER_ERROR", "error": str(e)}, status=500)
+
+@api_view(['GET'])
+def get_one_repository_by_name(request):
+    username = request.GET.get('username', None)
+    repositoryNae = request.GET.get('repository-name', None)
+
+    if not username or not repositoryNae:
+        return JsonResponse({'error': 'QUERY_NOT_FOUND'}, status=400)
+
+    try:
+        user = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'USER_NOT_FOUND'}, status=400)
+    
+    try:
+        repository = Repository.objects.get(name=repositoryNae, user=user)
+    except Repository.DoesNotExist:
+        return JsonResponse({'error': 'REPOSITORY_NOT_FOUND'}, status=400)
+
+    serializer = RepositorySerializer(repository, many=False)
     return JsonResponse({"message": 'SUCCESS', 'data': serializer.data}, status=200)

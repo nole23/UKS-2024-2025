@@ -1,0 +1,81 @@
+.header {
+    overflow: hidden;
+    display: flex;
+    min-height: 0px;
+    margin: 10px;
+    height: 50px;
+}
+
+.header-1 {
+    overflow: hidden;
+    margin-bottom: 0px;
+    position: relative;
+    display: inline-block;
+    flex: 1 1 auto;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.header-2 {
+    display: flex;
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.header-2 a {
+    color: #FFFFFF;
+    text-shadow: currentcolor 0.5px 0px 0px;
+    border-bottom: 4px solid transparent;
+    font-style: inherit;
+    font-variant: inherit;
+    font-stretch: inherit;
+    font-optical-sizing: inherit;
+    font-size-adjust: inherit;
+    font-kerning: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    --Link-underlineColor: rgba(var(--mui-palette-primary-mainChannel) / 0.4);
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-family: Roboto, system-ui, sans-serif;
+    line-height: 1.25;
+    max-width: 360px;
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+    white-space: normal;
+    text-align: center;
+    min-width: 0px;
+    font-size: 1rem;
+    text-transform: none;
+    font-weight: 400;
+    padding: 4px 8px;
+    min-height: 0px;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    justify-content: start;
+    gap: 8px;
+}
+
+.header-2 a:hover {
+    border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.active-tab {
+    border-bottom: 4px solid #FFFFFF!important;
+}

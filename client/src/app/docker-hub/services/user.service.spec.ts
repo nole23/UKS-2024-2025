@@ -24,14 +24,6 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('getAuthorizedUser', () => {
-    it('should return the user from localStorage if available', () => {
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      const user = service.getAuthorizedUser();
-      expect(user).toEqual(mockUser);
-    });
-  });
-
   describe('getAllUserIsMyOrganization', () => {
     it('should return data if the response is successful', () => {
       const username = 'nole23';

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
+from django.db.models import Q
 
 from uks.settings import EMAIL_HOST_USER
 from .models import CustomUser, Friendship
@@ -130,6 +131,22 @@ def search_friends(request):
     user = CustomUser.objects.get(username=username)
     friends = user.get_friends()
     serializer = CustomUserSerializer(friends, many=True)
+    return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
+
+@api_view(['GET'])
+def search_new_collaboration(request):
+    username = request.GET.get('username', None)
+
+    if not username:
+        return JsonResponse({'error': 'QUERY_NOT_FOUND'}, status=400)
+    
+    user = CustomUser.objects.filter(
+        Q(username__icontains=username) |
+        Q(first_name__icontains=username) |
+        Q(last_name__icontains=username) |
+        Q(email__icontains=username)
+    )
+    serializer = CustomUserSerializer(user, many=True)
     return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
     
 @api_view(['POST'])
