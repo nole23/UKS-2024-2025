@@ -1,0 +1,204 @@
+.tags-headers {
+    flex-direction: column;
+    margin-bottom: 16px;
+    gap: 24px;
+    float: left;
+    width: calc(100% - 32px);
+}
+
+.tags-headers-1 {
+    flex-direction: row;
+    width: 50px;
+    -webkit-box-align: center;
+    align-items: center;
+    float: left;
+}
+
+.tags-headers-right {
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 24px;
+    flex: 1 1 0%;
+    float: left;
+    width: calc(100% - 50px);
+    height: 57px;
+    display: flex;
+}
+
+.tags-headers-right p {
+    margin: 0;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.86rem;
+    line-height: 1.333;
+    letter-spacing: 0.02em;
+    margin-left: 25px;
+}
+
+/* Stilizovanje checkbox-a */
+.custom-checkbox {
+    -webkit-appearance: none; /* Isključuje podrazumevani izgled */
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;  /* Veća širina */
+    height: 20px; /* Veća visina */
+    border: 2px solid #94ABBC; /* Plavi border */
+    border-radius: 5px;  /* Zaobljeni uglovi */
+    background-color: transparent;  /* Transparentna pozadina */
+    position: relative;  /* Omogućava da se dodaju ikone ili oznake */
+    cursor: pointer;  /* Promena kursora na ruku */
+}
+
+/* Stil za označeni (checked) checkbox */
+.custom-checkbox:checked {
+    background-color: #007bff;  /* Plava pozadina kada je označeno */
+    border-color: #0056b3; /* Tamniji border kada je označeno */
+}
+
+.custom-checkbox:checked::before {
+    content: '';  /* Neprikazana tekstualna vrednost */
+    position: absolute;
+    left: 5px;    /* Pozicionira check mark unutar kvadrata */
+    top: 0;     /* Pozicionira check mark unutar kvadrata */
+    width: 8px;   /* Širina check mark-a */
+    height: 13px; /* Visina check mark-a */
+    border: solid white;
+    border-width: 0 2px 2px 0;  /* Pravljenje dijagonalne linije za check mark */
+    transform: rotate(45deg);  /* Rotacija da bi ličio na check mark */
+}
+
+select {
+    width: 100px;
+    height: 70%;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 1px solid #4E6A81;
+}
+
+option {
+    background-color: #10151B;
+    color: #FFFFFF;
+}
+
+.tags-headers-right input {
+    width: 250px;
+    height: 70%;
+    border-radius: 4px;
+    border: 1px solid #4E6A81;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+.tags-bodyy {
+    float: left;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+    padding: 36px;
+}
+
+.tags-bodyy-left {
+    float: left;
+    flex-direction: row;
+    gap: 4px;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 50px;
+    margin-top: 60px;
+}
+
+.tags-bodyy-right {
+    border: 1px solid #1C262D;
+    border-radius: 2px;
+    padding: 24px;
+    width: calc(100% - 50px);
+    float: left;
+}
+
+.tags-bodyy-right-buttom {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tags-bodyy-right-up p {
+    margin: 0px 0px 4px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.86rem;
+    line-height: 1.333;
+    letter-spacing: 0.02em;
+    color: #7794AB;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+.tags-bodyy-right-up-1 {
+    flex-direction: row;
+    gap: 16px;
+}
+
+.tags-bodyy-right-up-1-left {
+    float: left;
+    width: calc(100% - 350px);
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 0%;
+}
+
+.tags-bodyy-right-up-1-left a {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: now
+}
+
+.tags-bodyy-right-up-1-left p {
+    margin: 0px;
+    font-family: Roboto, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 0.86rem;
+    line-height: 1.333;
+    letter-spacing: 0.02em;
+}
+
+.tags-bodyy-right-up-1-right {
+    float: right;
+    width: 350px;
+}
+
+.tags-bodyy-right-up-1-right p {
+    padding: 8px 8px 0px;
+    min-height: 41px;
+    border-radius: 4px;
+    overflow: hidden;
+    color: #ADBECB;
+    background-color: #080B0E;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #151C20;
+    margin: 0px 64px 0px 0px;
+    font-size: 0.975em;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    font-family: "Roboto Mono";
+    line-height: 1.429;
+    overflow: auto;
+    padding-bottom: 8px;
+}

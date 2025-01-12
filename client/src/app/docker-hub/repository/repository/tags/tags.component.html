@@ -1,0 +1,97 @@
+<div>
+    <div class="tags-headers" style="margin: 5px 20px;">
+        <form [formGroup]="form">
+            <div class="tags-headers-1" style="padding: 15px;">
+                <input type="checkbox" class="custom-checkbox" formControlName="removeCheck" (change)="toggleAllCheckboxes($event)" />
+            </div>
+            <div class="tags-headers-right">
+                <p>Sort by</p>
+                <select name="sort" id="sort-select" (change)="sortTags($event)">
+                    <option value="1">Newest</option>
+                    <option value="2">Oldest</option>
+                    <option value="3">A - Z</option>
+                    <option value="4">Z - A</option>
+                </select>
+                <input type="text" placeholder="Filter tags" (input)="onFilterTags($event)" />
+                <button class="btn btn-outline-danger" [disabled]="!anySelected" (click)="deleteSelectedTags()">Delete</button>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add tags</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="tags-bodyy" *ngFor="let i of tags; let index = index">
+        <div class="tags-bodyy-left">
+            <input type="checkbox" class="custom-checkbox" [(ngModel)]="i.selected" (change)="onTagCheckboxChange()"/>
+        </div>
+        <div class="tags-bodyy-right">
+            <div class="tags-bodyy-right-up">
+                <p>TAG</p>
+                <div class="tags-bodyy-right-up-1">
+                    <div class="tags-bodyy-right-up-1-left">
+                        <a style="cursor: pointer;">{{i.tag}}</a>
+                        <p>{{getTimeAgo(i.updated_at)}}</p>
+                    </div>
+                    <div class="tags-bodyy-right-up-1-right">
+                        <p>docker pull {{profile.username}}/{{i.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tags-bodyy-right-buttom">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #10151B!important;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Tag</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="version" class="form-label">Version</label>
+            <input
+              type="text"
+              id="version"
+              class="form-control"
+              formControlName="version"
+              style="background-color: transparent; color: #fff;"
+              placeholder="Enter version (e.g., 1.0.0)"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+              style="background-color: transparent; color: #fff;"
+              placeholder="Enter name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              id="description"
+              class="form-control"
+              formControlName="description"
+              rows="3"
+              style="background-color: transparent; color: #fff;"
+              placeholder="Enter description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="tagForm.invalid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="collaborators">
+    <div class="collaborators-1">
+        <div class="collaborators-1-half">
+            <div class="collaborators-1-half-up">
+                <div class="collaborators-1-half-up-1">
+                    <h3>Collaborators</h3>
+                </div>
+            </div>
+            <div class="collaborators-1-half-down">
+                <div class="collaborators-1-half-down-1">
+                    <p>Collaborators will be given push and pull access to this repository.</p>
+                    <div class="search">
+                        <div class="search-left">
+                            <input type="text" placeholder="Username" (input)="onFilterTags($event)"/>
+                        </div>
+                        <div class="search-right">
+                            <button class="btn btn-custom" (click)="addCollaborator()"><i class="fa fa-plus" aria-hidden="true" ></i> Add collaborator</button>
+                        </div>
+                    </div>
+                    <div *ngFor="let i of findeUser">
+                        <div class="all-search" >
+                            <div style="float: left; ">
+                                <p style="float: left;">{{i.username}}</p>
+                                <input type="checkbox" [(ngModel)]="i.selected" [disabled]="!i.selected && isAnySelected" (change)="onCheckboxChange(i)"  style="margin-block-start: 1.3em;margin-block-end: 1em;margin-inline-start: 15px;margin-inline-end: 0px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="collaborators-1-half"></div>
+    </div>
+</div>

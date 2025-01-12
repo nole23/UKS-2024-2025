@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { RepositoryService } from '../services/repository.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,11 @@ export class HomeComponent implements OnInit {
   allRepository: any = [];
   storageAllRepository: any = [];
   
-  constructor(private userService: UserService, private repository: RepositoryService) {}
+  constructor(
+    private userService: UserService,
+    private repository: RepositoryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     let user = this.userService.getAuthorizedUser();
@@ -41,9 +46,6 @@ export class HomeComponent implements OnInit {
   onInputChange(event: Event): void {
     const inputValue = (event.target as HTMLInputElement).value;
     if (inputValue.length >= 3) {
-      
-      // this.isSpiner = true; 
-      // this.searchQuery$.next(inputValue); // Emituje novi tekst za pretragu
       this.storageAllRepository = this.allRepository;
       this.repository.getRepositoryByName({username: this.profile.username, repositoryName: inputValue}).subscribe((res: any) => {
         if (res.status) {
@@ -59,4 +61,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  openRepository(reposiotory: any) {
+    this.router.navigate(['/dashboard/repository/docker', this.profile.username, reposiotory.name, 'general'])
+  }
 }

@@ -1,0 +1,57 @@
+<div class="settings" *ngIf="repositoryData != null">
+    <div class="settings-region">
+        <div class="publication">
+            <h3>Visibility settings</h3>
+            <p>Features and controls that help you uncover, understand, and fix issues with your container images in Docker Hub</p>
+        </div> 
+        <div class="publication-body">
+            <input 
+                type="radio" 
+                id="public" 
+                name="visibility" 
+                [(ngModel)]="repositoryData.settings.is_private" 
+                [value]="true" />
+            <label for="public">Public</label>
+        </div>
+        <div class="publication-body">
+            <input 
+                type="radio" 
+                id="private" 
+                name="visibility"
+                [(ngModel)]="repositoryData.settings.is_private" 
+                [value]="false" />
+            <label for="private">Private</label>
+        </div>
+        <div class="publication-down">
+            <button type="button" class="btn btn-outline-danger" (click)="restart()">Cancel</button> <Button type="button" class="btn btn-primary" (click)="savePrivate()">Save</Button>
+        </div>
+    </div>
+
+    <div class="settings-region">
+        <div class="remove-up">
+            <h3>Delete repository</h3>
+        </div>
+        <div class="remove-down">
+            <p>Deleting a repository will destroy all images stored within it. This action cannot be undone.</p>
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete repository</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #10151B!important;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete repository</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+            <p style="color: red;">Da li ste sigurni da zelite da obrisete repository</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>No</button>
+                <button type="submit" class="btn btn-primary" (click)="removeRepository()">Yes</button>
+            </div>
+      </div>
+    </div>
+</div>

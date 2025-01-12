@@ -33,9 +33,9 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let i of allRepository">
+                                          <tr *ngFor="let i of allRepository" (click)="openRepository(i)" style="cursor: pointer;">
                                             <td>{{profile.username + '/' + i.name}}</td>
-                                            <td>{{i.created_at}}</td>
+                                            <td>{{i.updated_at | date:'yyyy MMM dd h:mm a'}}</td>
                                             <td>image</td>
                                             <td>{{i.settings.is_private == true ? 'Public' : 'Private'}}</td>
                                             <td>inactive</td>

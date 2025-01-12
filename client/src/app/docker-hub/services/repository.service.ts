@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { response } from 'express';
 import { catchError, map, of } from 'rxjs';
 
 @Injectable({
@@ -35,6 +36,50 @@ export class RepositoryService {
 
   getRepositoryByName(query: any) {
     return this.http.get(this.API_URL + 'search-repositories?username=' + query.username + '&query=' + query.repositoryName)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      );
+  }
+
+  getOneRepositoryByName(repository: any, username: any) {
+    return this.http.get(this.API_URL + 'get-one-repository-by-name?username=' + username + '&repository-name=' + repository)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      );
+  }
+
+  getTagsByRepository(id: any) {
+    return this.http.get(this.API_URL + 'get-tags-by-repository?repositoryId=' + id)
       .pipe(
         map((res: any) => {
           if (!this._checkResponse(res)) {
@@ -97,6 +142,147 @@ export class RepositoryService {
           }
         })
       )
+  }
+
+  updateRepository(reposioty: any, user: any) {
+    return this.http.put(this.API_URL + 'repositories/update/', {reposioty: reposioty, user: user})
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
+  }
+
+  removeTags(listTags: any) {
+    return this.http.post(this.API_URL + 'repositories/tags/delete/', {listTags: listTags})
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
+  }
+
+  addNewTag(repositoryId: any, tags: any, username: any) {
+    return this.http.post(this.API_URL + 'repositories/tags/add/', 
+      { 
+        newTag: {
+          repository: repositoryId,
+          tag: tags.version,
+          name: tags.name,
+          description: tags.description
+        },
+        username: username
+      })
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
+  }
+
+  addCollaborator(object: any) {
+    return this.http.put(this.API_URL + 'repositories/collaborators/', object)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
+  }
+
+  updateSettings(repository: any) {
+    return this.http.put(this.API_URL + 'repositories/update/settings/', repository)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
+  }
+
+  removeReposiroty(reposirotyId: any) {
+    return this.http.delete(this.API_URL + 'repositories/delete?reposirotyId=' + reposirotyId)
+      .pipe(
+        map((res: any) => {
+          if (!this._checkResponse(res)) {
+            return {status: false, message: null}
+          }
+          return {status: true, message: res.data}
+        }),
+        catchError((error) => {
+          // Ovde možeš da obradiš grešku
+          if (error.status === 400) {
+            return of(this._errorMessageConvert(error));
+          } else if (error.status === 500) {
+            return of({ status: false, message: 'Server Error. Please try again later.' });
+          } else {
+            return of({ status: false, message: 'An unexpected error occurred.' });
+          }
+        })
+      ) 
   }
 
   private _checkResponse(res: any) {

@@ -1,0 +1,12 @@
+<div class="header">
+    <div class="header-1">
+        <div class="header-2">
+            <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'general']" routerLinkActive="active-tab">General</a>
+            <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'tags']" routerLinkActive="active-tab">Tags</a>
+            <!-- <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'builds']" routerLinkActive="active-tab">Builds</a> -->
+            <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'collaborators']" routerLinkActive="active-tab">Collaborators</a>
+            <!-- <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'webhooks']" routerLinkActive="active-tab">Webhooks</a> -->
+            <a [routerLink]="['/dashboard/repository/docker', profile.username, repositoryName, 'settings']" routerLinkActive="active-tab">Settings</a>
+        </div>
+    </div>
+</div>
