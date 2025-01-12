@@ -17,11 +17,15 @@ class RepositorySerializer(serializers.ModelSerializer):
     usage_stats = RepositoryUsageSerializer(source='repositoryusage', read_only=True)
     settings = RepositorySettingsSerializer(source='repositorysettings', read_only=True)
     is_private = serializers.BooleanField(write_only=True, required=False)  # Za prosleđivanje `is_private`
+    user = serializers.SerializerMethodField() 
 
     class Meta:
         model = Repository
         fields = ['id', 'user', 'name', 'description', 'created_at', 'updated_at', 'usage_stats', 'settings', 'is_private']
         read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def get_user(self, obj):
+        return obj.user.username  # Vraća `username` korisnika
 
     def create(self, validated_data):
         # Izvuci podatke

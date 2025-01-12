@@ -9,9 +9,9 @@
         </div>
         <nav>
             <hr>
-            <a href="u/nole23">My profile </a>
-            <a href="u/settings/nole23">Account settings</a>
-            <a href="dashboard/billing">Biling</a>
+            <a [routerLink]="['u', user.username]">My profile </a>
+            <a [routerLink]="['u/setting', user.username]">Account settings</a>
+            <a [routerLink]="['dashboard/billing']">Biling</a>
             <hr>
             <button (click)="logout()">Sing out</button>
         </nav>

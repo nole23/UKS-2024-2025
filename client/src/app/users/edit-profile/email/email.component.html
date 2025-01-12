@@ -1,0 +1,25 @@
+<div class="account-information">
+    <div class="account-information-1">
+        <form [formGroup]="form">
+            <div class="form-inpu">
+                <div class="form-up">
+                    <h1>Update email address</h1>
+                    <p>Enter the new email address for your account. Once you verify your new email address, your account will update.</p>
+                </div>
+                <div class="from-body">
+                    <div class="from-body-input">
+                        <label for=":rq:">Email</label>
+                        <div class="from-body-input-1">
+                            <input type="email" name="email" id="email" placeholder="First name" [(ngModel)]="user.email" formControlName="email" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="from-down">
+                    <a [routerLink]="['']" type="button" class="btn btn-outline-primary" style="color: #fff;">Cancel</a>
+                    <button type="button" class="btn btn-success" (click)="updateUser()" [disabled]="!isSaveEnabled">Update email</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

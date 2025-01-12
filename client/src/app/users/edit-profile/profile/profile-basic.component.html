@@ -1,0 +1,42 @@
+<div class="user-settings">
+    <div class="user-settings-1">
+        <form>
+            <div class="user-settings-username">
+                <div class="username-1">
+                    <div class="username-img">
+                        {{getFirstUppercaseLetter(profile.username)}}
+                    </div>
+                    <div>
+                        <h3>{{profile.username}}</h3>
+                        <p>Join {{profile.date_joined | date: 'MMMM dd, yyyy'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="user-body">
+                <div class="user-body-general">
+                    <h3>General</h3>
+                    <a [routerLink]="['account-information']">
+                        <div class="name-generale">
+                            <h4>Account information</h4>
+                            <div class="name-generale-p">
+                                <p>{{profile.email}}</p>
+
+
+                            </div>
+                        </div>
+                        <button class="btn btn-customer"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i></button>
+                    </a>
+                </div>
+                <a [routerLink]="['email']">
+                    <div class="name-generale">
+                        <h4>Email</h4>
+                        <div class="name-generale-p">
+                            <p>{{profile.email}}</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-customer"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i></button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

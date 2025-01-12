@@ -3,9 +3,9 @@
         <div class="navigation-nav">
             <nav>
                 <ol>
-                    <li><a href="dashboard">Repositories</a></li>
+                    <li><a [routerLink]="['dashboard']">Repositories</a></li>
                     <li style="margin-left: 10px; margin-right: 10px;">/</li>
-                    <li><a href="dashboard/repository/create">Create</a></li>
+                    <li><a [routerLink]="['dashboard/repository/create']">Create</a></li>
                 </ol>
             </nav>
             <p>Using 0 of 1 private repository</p>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="from-bottom">
-                        <a href="dashboard" class="btn btn-outline-danger">Cancel</a>
+                        <a [routerLink]="['dashboard']" class="btn btn-outline-danger">Cancel</a>
                         <button class="btn btn-outline-success" (click)="createNewRepository()" [disabled]="!form.valid">Create</button>
                     </div>
                 </div>

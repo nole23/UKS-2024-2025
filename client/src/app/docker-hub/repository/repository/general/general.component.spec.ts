@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { RepositoryService } from '../../../services/repository.service';
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing'; // Dodato
 
 describe('GeneralComponent', () => {
   let component: GeneralComponent;
@@ -34,7 +35,7 @@ describe('GeneralComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [GeneralComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, RouterTestingModule], // Dodato RouterTestingModule
       providers: [
         { provide: RepositoryService, useValue: mockRepositoryService },
         { provide: UserService, useValue: mockUserService },

@@ -5,7 +5,7 @@ from django.db.models import Q
 
 from uks.settings import EMAIL_HOST_USER
 from .models import CustomUser, Friendship
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomUserFullSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -31,6 +31,37 @@ def get_all_users(request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_user_by_username(request):
+    username = request.GET.get('username', None)
+    user = CustomUser.objects.get(username=username)
+
+    serializer = CustomUserFullSerializer(user)
+    return JsonResponse({"message": "SUCCESS", "data": serializer.data}, status=200)
+
+@api_view(['PUT'])
+def uptede_user(request):
+    try:
+        # Preuzmi korisnika na osnovu email-a
+        email = request.data.get('email')
+        if not email:
+            return Response({"error": "Email is required to update the user"}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = CustomUser.objects.get(email=email)  # Pronalazak korisnika
+
+    except CustomUser.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Prosledi podatke i instancu korisnika serijalizatoru
+    serializer = CustomUserFullSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()  # Ažuriraj instancu
+        return JsonResponse({"message": "SUCCESS"}, status=200)
+    else:
+        return JsonResponse({"message": "INVALID_CREDENTIALS"}, status=status.HTTP_400_BAD_REQUEST)
+    
 
 # Login korisnika (koristi email i lozinku)
 @api_view(['POST'])
