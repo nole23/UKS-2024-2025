@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';  // Proveri da li je k
 import { AuthComponent } from './auth.component';
 import { HeaderComponent } from './common/header/header.component';
 import { AuthRoutingModule } from './auth-routing.module';
-import { FooterComponent } from '../common/footer/footer.component';
 import { AuthService } from './services/auth.service';
 import { RegistrationComponent } from './registration/registration.component';
 
@@ -16,7 +15,6 @@ import { RegistrationComponent } from './registration/registration.component';
     AuthComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent,
     RegistrationComponent
   ],
   imports: [

@@ -1,0 +1,190 @@
+.user-settings {
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 100%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    padding-bottom: 16px;
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    gap: 40px;
+    position: relative;
+}
+
+.user-settings-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+}
+
+.user-settings-username {
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.username-1 {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.username-img {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    line-height: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    user-select: none;
+    color: #fff;
+    width: 80px;
+    height: 80px;
+    font-size: 21pt;
+    font-weight: 500;
+    background-color: #7CB9F4;
+}
+
+.username-1 h3 {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.333;
+    letter-spacing: 0;
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.username-1 p {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.user-body {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.user-body-general {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.user-body-general h3 {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.333;
+    letter-spacing: 0;
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.user-body a {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    color: inherit;
+    -webkit-box-align: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.name-generale {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.name-generale h4 {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.286rem;
+    line-height: 1.333;
+    letter-spacing: 0;
+    display: block;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.name-generale-p {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.name-generale-p p {
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.429;
+    letter-spacing: 0.02em;
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.btn-customer {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    text-align: center;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    padding: 8px;
+    color: #7794AB;
+    font-size: 1.714rem;
+}

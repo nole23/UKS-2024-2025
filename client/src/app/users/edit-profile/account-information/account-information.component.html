@@ -1,0 +1,50 @@
+<div class="account-information">
+    <div class="account-information-1">
+        <form [formGroup]="form">
+            <div class="form-inpu">
+                <div class="form-up">
+                    <h1>Account information</h1>
+                    <p>This information will be visible to all users of Docker.</p>
+                </div>
+                <div class="from-body">
+                    <div class="from-body-input">
+                        <label for=":rq:">Full name</label>
+                        <div class="from-body-input-1">
+                            <input type="text" name="firstName" id="firstName" placeholder="First name" [(ngModel)]="user.first_name" formControlName="firstName" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                    <div class="from-body-input">
+                        <div class="from-body-input-1">
+                            <input type="text" name="lastName" id="lastName" placeholder="Last name" [(ngModel)]="user.last_name" formControlName="lastName" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                    <div class="from-body-input">
+                        <div class="from-body-input-1">
+                            <input type="date" name="dateOfBirth" id="dateOfBirth" placeholder="Day of brdth" [(ngModel)]="user.date_of_birth" formControlName="dateOfBirth" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                    <div class="from-body-input">
+                        <div class="from-body-input-1">
+                            <input type="text" name="bio" id="bio" placeholder="Bio" [(ngModel)]="user.bio" formControlName="bio" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                    <div class="from-body-input">
+                        <div class="from-body-input-1">
+                            <input type="tel" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone number" [(ngModel)]="user.phone_number" formControlName="phone" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                    <div class="from-body-input">
+                        <div class="from-body-input-1">
+                            <input type="text" name="address" id="address" placeholder="Address" [(ngModel)]="user.address" formControlName="address" style="border: 1px solid #7794AB; border-radius: 4px;"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="from-down">
+                    <a [routerLink]="['']" type="button" class="btn btn-outline-primary" style="color: #fff;">Cancel</a>
+                    <button type="button" class="btn btn-success" (click)="updateUser()" [disabled]="!isSaveEnabled">Save</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

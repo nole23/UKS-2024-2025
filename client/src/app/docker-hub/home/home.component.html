@@ -1,0 +1,77 @@
+<div class="home-repository">
+    <div class="css-btibay">
+        <div class="page-content-home">
+            <div class="page-content-home-one">
+                <div class="page-content-home-table">
+                    <div class="table-css">
+                        <div class="table-css-one">
+                            <div class="table-css-one-one">
+                                <div class="table-header">
+                                    <div class="table-header-namespace">
+                                        <select name="namespace" id="" class="header-35 w-100">
+                                            <option *ngFor="let i of allUserInMyOrganization" value="{{i.username}}">{{i.username}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="table-header-search">
+                                        <div class="input-group">
+                                            <input type="text" class="header-35" style="color: #fff;" placeholder="Search by repository name" (input)="onInputChange($event)">
+                                        </div>                                        
+                                    </div>
+                                    <div class="table-header-create-new">
+                                        <a [routerLink]="['dashboard/repository/create']" class="btn btn-primary header-35">Create a repository</a>
+                                    </div>
+                                </div>
+                                <div class="table-body">
+                                    <table class="table" style="background-color: transparent!important;">
+                                        <thead>
+                                          <tr>
+                                            <th>Name</th>
+                                            <th>Last Pushed</th>
+                                            <th>Contains</th>
+                                            <th>Visibility</th>
+                                            <th>Scout</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let i of allRepository" (click)="openRepository(i)" style="cursor: pointer;">
+                                            <td>{{profile.username + '/' + i.name}}</td>
+                                            <td>{{i.updated_at | date:'yyyy MMM dd h:mm a'}}</td>
+                                            <td>image</td>
+                                            <td>{{i.settings.is_private == true ? 'Public' : 'Private'}}</td>
+                                            <td>inactive</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content-home-two" style="margin-bottom: 10px;">
+                    <div class="organizations-card">
+                        <div style="width: 100%; height: 300px; padding: 50px 90px;">
+                            <img src="https://d36jcksde1wxzq.cloudfront.net/hub-ui/CR2r0IHi.svg" alt="" >
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 25px;">
+                            <button disabled style="background: transparent; color: #fff">Create an organization</button>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; ">
+                            <button disabled style="background: transparent; color: #fff"> Create and manage users and grant access to your repositories</button>    
+                        </div>
+                     </div>
+                    <div class="organizations-card">
+                        <div style="width: 100%; height: 200px; padding: 15px;">
+                            <img src="https://d36jcksde1wxzq.cloudfront.net/hub-ui/DpO-rU6F.png" alt="" style="width: 325px; padding: 15px;">
+                        </div>
+                        <div style="padding: 15px 15px 0 15px;">
+                            <h3>Accelerating AI development with the Docker AI catalog</h3>
+                        </div>
+                        <div style="padding: 15px 15px 0 15px;">
+                            <p>The Docker AI catalog accelerates AI development with trusted, pre-built demos that simplify workflows and deployment. Explore curated tools, models, and frameworks designed to help developers innovate faster and collaborate seamlessly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

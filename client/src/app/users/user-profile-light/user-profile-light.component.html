@@ -1,0 +1,19 @@
+<div class="user-profile-light">
+    <div class="user-profile-light-one">
+        <div class="user-profile-light-one-img"></div>
+        <div class="user-profile-light-one-user-logo">
+            <div class="user-profile-light-one-user-logo-name">{{getFirstLetter()}}</div>
+        </div>
+        <div class="user-profile-light-one-user-logo-username">
+            <p>nole23</p>
+        </div>
+        <nav>
+            <hr>
+            <a [routerLink]="['u', user.username]">My profile </a>
+            <a [routerLink]="['u/setting', user.username]">Account settings</a>
+            <a [routerLink]="['dashboard/billing']">Biling</a>
+            <hr>
+            <button (click)="logout()">Sing out</button>
+        </nav>
+    </div>
+</div>

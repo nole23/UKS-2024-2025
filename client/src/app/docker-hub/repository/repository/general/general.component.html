@@ -1,0 +1,94 @@
+<div class="general">
+    <div class="general-up">
+        <div class="general-up-1">
+            <div class="general-up-left">
+                <div class="general-up-left-1">
+                    <div class="general-up-left-1-name">
+                        <h3>{{profile.username}}/{{repositoryData.name}}</h3>
+                    </div>
+                    <div class="general-up-left-1-time">
+                        <span>{{getTimeAgo(repositoryData.updated_at)}}</span>
+                    </div>
+                    <div class="general-up-left-1-description">
+                        <div class="general-up-left-1-description-add" *ngIf="isShowDescription">
+                            <p *ngIf="repositoryData.description === ''">Add a descriotion</p>
+                            <p *ngIf="repositoryData.description !== ''">{{repositoryData.description}}</p>
+                        </div>
+                        <div class="general-up-left-1-description-show" *ngIf="!isShowDescription">
+                            <form [formGroup]="form">
+                                <div class="general-up-left-1-description-show-input">
+                                    <textarea rows="2" id="" required [(ngModel)]="repositoryDescriton" formControlName="repositoryDescriton"></textarea>
+                                </div>
+                                <div class="general-up-left-1-description-show-input-button">
+                                    <button class="btn btn-outline-danger" (click)="isShowDescription = !isShowDescription">Cancel</button> <button class="btn btn-outline-success" (click)="updateDescriotion()" [disabled]="!form.valid">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-general-up-left-1-description" *ngIf="isShowDescription" (click)="isShowDescription = !isShowDescription"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="general-up-right">
+                <div class="general-up-right-1">
+                    <h4>Docker commands</h4>
+                    <p>To push a new tag to this repository:</p>
+                    <div class="general-up-right-commands">
+                        docker push nole23/nginx-image:tagname
+                    </div>
+                    <a [routerLink]="['/dashboard/public-view']" type="button" class="btn btn-outline-primary">Public view</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="general-body">
+        <div class="general-body-left">
+            <div class="general-body-left-up">
+                <h3>Tags</h3>
+            </div>
+            <div class="general-body-left-bottom">
+                <p>This repository contains 2 tag(s)</p>
+                <div class="table-body">
+                    <table class="table" style="background-color: transparent!important;">
+                        <thead>
+                            <tr>
+                                <th>Tag</th>
+                                <th>OS</th>
+                                <th>Type</th>
+                                <th>Pulled</th>
+                                <th>Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of tagsData" style="cursor: pointer;">
+                                <td>{{i.tag}}</td>
+                                <td><i class="fa fa-linux" aria-hidden="true"></i></td>
+                                <td>image</td>
+                                <td>{{getTimeAgo(i.created_at)}}</td>
+                                <td>{{getTimeAgo(i.updated_at)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="general-body-right">
+            <div class="general-body-right-1">
+                <h3>Automated builds</h3>
+                <p>Manually pushing images to Docker Hub? Connect your account to GitHub or Bitbucket to automatically build and tag new images whenever your code is updated, so you can focus your time on creating.
+
+                    Available with Pro, Team and Business subscriptions</p>
+            </div>
+        </div>
+    </div>
+    <div class="general-bottom">
+        <div class="general-bottom-1">
+            <h3>Repository overview</h3>
+        </div>
+        <div class="general-bottom-1">
+            <p>An overview describes what your image does and how to run it. It displays in the public view of your repository once you have pushed some content.</p>
+        </div>
+        <div class="general-bottom-1">
+            <button class="btn btn-outline-primary">Add overview</button>
+        </div>
+    </div>
+</div>

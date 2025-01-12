@@ -1,14 +1,14 @@
 # users/serializers.py
 import random
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, UserProfile
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'first_name', 'last_name', 'password', 'profile_picture']
+        fields = ['email', 'username', 'first_name', 'last_name', 'password', 'profile_picture', 'date_joined']
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)  # Uzimanje lozinke
@@ -52,3 +52,44 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 representation['profile_picture'] = "5.png"
 
         return representation
+
+class CustomUserFullSerializer(serializers.ModelSerializer):
+    """
+    Serijalizacija za ažuriranje korisničkih podataka i povezanog UserProfile modela.
+    """
+    phone_number = serializers.CharField(source='userprofile.phone_number', required=False, allow_null=True)
+    address = serializers.CharField(source='userprofile.address', required=False, allow_null=True)
+    location = serializers.CharField(source='userprofile.location', required=False, allow_null=True)
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'bio',
+            'phone_number',
+            'address',
+            'location'
+        ]
+
+    def update(self, instance, validated_data):
+        # Ažuriranje osnovnih podataka korisnika
+        user_profile_data = validated_data.pop('userprofile', {})
+
+        for attr, value in validated_data.items():
+            if value is not None:  # Ažuriramo samo ako je prosleđena vrednost
+                setattr(instance, attr, value)
+        instance.save()
+
+        # Ažuriranje povezanog UserProfile modela
+        if user_profile_data:
+            user_profile, created = UserProfile.objects.get_or_create(user=instance)
+            for attr, value in user_profile_data.items():
+                if value is not None:  # Ažuriramo samo ako je prosleđena vrednost
+                    setattr(user_profile, attr, value)
+            user_profile.save()
+
+        return instance

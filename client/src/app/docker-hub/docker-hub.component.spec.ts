@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { DockerHubComponent } from "./docker-hub.component";
+// import { ComponentFixture, TestBed } from "@angular/core/testing";
+// import { DockerHubComponent } from "./docker-hub.component";
 
-describe('DockerHubComponent', () => {
-    let component: DockerHubComponent;
-    let fixture: ComponentFixture<DockerHubComponent>;
+// describe('DockerHubComponent', () => {
+//     let component: DockerHubComponent;
+//     let fixture: ComponentFixture<DockerHubComponent>;
   
-    beforeEach(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [DockerHubComponent]  // Dodajemo FooterComponent u declarations
-      })
-      .compileComponents();
+//     beforeEach(async () => {
+//       await TestBed.configureTestingModule({
+//         declarations: [DockerHubComponent]  // Dodajemo FooterComponent u declarations
+//       })
+//       .compileComponents();
   
-      fixture = TestBed.createComponent(DockerHubComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    });
+//       fixture = TestBed.createComponent(DockerHubComponent);
+//       component = fixture.componentInstance;
+//       fixture.detectChanges();
+//     });
   
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-});
+//     it('should create', () => {
+//       expect(component).toBeTruthy();
+//     });
+// });

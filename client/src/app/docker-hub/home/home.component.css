@@ -1,0 +1,171 @@
+.home-repository {
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    padding-bottom: 0px;
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    gap: 40px;
+    position: relative;
+}
+
+.css-btibay {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1 1 0%;
+    min-width: 0px;
+}
+
+.page-content-home {
+    padding-top: 32px;
+}
+
+.page-content-home-one {
+    -webkit-box-align: start;
+    align-items: start;
+    flex-direction: row;
+    flex-flow: wrap;
+    min-width: 0px;
+    box-sizing: border-box;
+    display: flex;
+    gap: 32px 32px;
+}
+
+.page-content-home-table {
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-basis: auto;
+    width: 70%;
+    flex-flow: wrap;
+    min-width: 0px;
+    box-sizing: border-box;
+    display: flex;
+    gap: 32px 32px;
+}
+
+.table-css {
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-basis: auto;
+    width: 100%;
+    min-width: 0px;
+    box-sizing: border-box;
+}
+
+.table-css-one {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 16px;
+}
+
+.table-css-one-one {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.table-header {
+    display: flex;
+    flex-flow: wrap;
+    gap: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.table-header-search {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0px;
+    border: 0px;
+    vertical-align: top;
+    margin: 4px 0px;
+    min-width: 200px;
+}
+
+.table-header-content {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0px;
+    border: 0px;
+    vertical-align: top;
+    margin: 4px 0px;
+    min-width: 200px;
+    background-color: #10151B;
+}
+
+.table-header-create-new {
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-pack: end;
+    justify-content: end;
+}
+
+.page-content-home-two {
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-basis: auto;
+    width: 25%;
+    flex-flow: wrap;
+    min-width: 0px;
+    box-sizing: border-box;
+    display: flex;
+    gap: 32px 32px;
+}
+
+.table-header-namespace {
+    width: 200px;
+}
+
+.header-35 {
+    height: 35px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+select {
+    background: transparent;
+    color: #677285;
+    border-radius: 5px;
+}
+
+input {
+    background: transparent;
+    border: 1px solid #677285;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.table {
+    --bs-body-bg: transparent;
+    --bs-emphasis-color: #fff;
+    --bs-border-color: #677285;
+}
+
+.organizations-card {
+    box-sizing: inherit;
+    width: 100%;
+    height: 502px;
+    border-radius: 4px;
+    border: 1.5px solid #4E6A81;
+}

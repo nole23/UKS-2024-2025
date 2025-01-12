@@ -1,0 +1,64 @@
+<div class="create-repository">
+    <div class="create-repository-navigation">
+        <div class="navigation-nav">
+            <nav>
+                <ol>
+                    <li><a [routerLink]="['dashboard']">Repositories</a></li>
+                    <li style="margin-left: 10px; margin-right: 10px;">/</li>
+                    <li><a [routerLink]="['dashboard/repository/create']">Create</a></li>
+                </ol>
+            </nav>
+            <p>Using 0 of 1 private repository</p>
+        </div>
+    </div>
+    <div class="create-repository-body">
+        <div class="create-repository-body-left">
+            <h3>Create repository</h3>
+            <form [formGroup]="form">
+                <div class="create-repository-body-from">
+                    <div class="from-top">
+                        <div class="from-top-input" style="width: 30%;">
+                            <label for="namespace">Namespace</label>
+                            <div class="input-border">
+                                <input type="text" id="namespace" name="namespace" placeholder="namespace" value="{{profile.username}}" disabled>
+                            </div>
+                        </div>
+                        <div class="from-top-input" style="width: 65%; margin-left: 30px; margin-top: 23px;">
+                            <div class="input-border">
+                                <input type="text" id="repositoryName" name="repositoryName" placeholder="Repository name" required [(ngModel)]="repositoryName" formControlName="repositoryName">
+                            </div>
+                        </div>
+                        <div class="from-top-input" style="width: 100%; margin-top: 30px;">
+                            <div class="input-border">
+                                <input type="text" id="repositoryDescriton" name="repositoryDescriton" placeholder="Short description" style="height: 60px;" required [(ngModel)]="repositoryDescriton" formControlName="repositoryDescriton">
+                            </div>
+                            <span>A short description to identify your repository. If the repository is public, this description is used to index your content on Docker Hub and in search engines, and is visible to users in search results.</span>
+                        </div>
+                        <div class="from-top-input" style="width: 100%; margin-top: 15px;">
+                            <h4>Visibility</h4>
+                        </div>
+                        <div class="from-top-input" style="width: 100%; margin-top: 15px;">
+                            <input type="radio" style="width: 20%;" name="repositoryVisibility" [(ngModel)]="repositoryVisibility" [value]="true" [ngModelOptions]="{standalone: true}"/> <span style="font-size: 20px;">Public</span> 
+                            <input type="radio" style="width: 20%;" name="repositoryVisibility" [(ngModel)]="repositoryVisibility" [value]="false" [ngModelOptions]="{standalone: true}"/> <span style="font-size: 20px;">Private</span> 
+                        </div>
+                    </div>
+                    <div class="from-bottom">
+                        <a [routerLink]="['dashboard']" class="btn btn-outline-danger">Cancel</a>
+                        <button class="btn btn-outline-success" (click)="createNewRepository()" [disabled]="!form.valid">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="create-repository-body-right">
+            <h4>Pushing images</h4>
+            <div>
+                <p>You can push a new image to this repository using the CLI:</p>
+                <div class="console">
+                    <div>docker tag local-image:tagname new-repo:tagname</div>
+                    <div>docker push new-repo:tagname</div>
+                </div>
+                <p>Make sure to replace <samp>tagname</samp> with your desired image repository tag.</p>
+            </div>
+        </div>
+    </div>
+</div>

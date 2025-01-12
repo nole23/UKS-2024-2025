@@ -2,23 +2,10 @@ from django.db import models
 
 from users.models import CustomUser
 
-# Create your models here.
-# Explorer: Docker Image model
-class DockerImage(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    version = models.CharField(max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
 # Repository: Models for Repository and Search
 class Repository(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)  # Polje name je sada jedinstveno
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -34,6 +21,21 @@ class Repository(models.Model):
 
     def search_by_user(self, user):
         return Repository.objects.filter(user=user)
+
+
+# Create your models here.
+# Explorer: Docker Image model
+class DockerImage(models.Model):
+    repository = models.ForeignKey(Repository, on_delete=models.CASCADE, related_name="images", null=True, blank=True)
+    tag = models.CharField(max_length=100, default='latest')
+    name = models.CharField(max_length=255)  # Ime slike
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.tag} ({self.name})"
+
 
 # Usage Stats: For tracking pulls and storage usage
 class RepositoryUsage(models.Model):

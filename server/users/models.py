@@ -3,6 +3,21 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.forms import ValidationError
+from django.conf import settings
+
+class Friendship(models.Model):
+    """
+    Model koji predstavlja prijateljstvo između dva korisnika.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='friendships', on_delete=models.CASCADE)
+    friend = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='friends', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'friend')  # Sprečava dupliciranje prijateljstava
+
+    def __str__(self):
+        return f"{self.user.username} is friends with {self.friend.username}"
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -43,6 +58,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def get_friends(self):
+        """
+        Dohvati listu prijatelja korisnika.
+        """
+        friendships = Friendship.objects.filter(user=self)
+        return [friendship.friend for friendship in friendships]
+
+    def get_friend_requests(self):
+        """
+        Dohvati prijateljske zahteve koje korisnik još nije prihvatio.
+        """
+        friend_requests = Friendship.objects.filter(friend=self, is_pending=True)
+        return [request.user for request in friend_requests]
 
 # System Theme: For user system theme preferences
 class UserTheme(models.Model):
